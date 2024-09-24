@@ -16,8 +16,8 @@
 
 #include "SensorsSubHal.h"
 
+#include <android-base/properties.h>
 #include <android/hardware/sensors/2.1/types.h>
-#include <cutils/properties.h>
 #include <log/log.h>
 
 using ::android::hardware::sensors::V2_1::implementation::ISensorsSubHal;
@@ -30,17 +30,18 @@ namespace V2_1 {
 namespace subhal {
 namespace implementation {
 
+using ::android::base::GetBoolProperty;
 using ::android::hardware::Void;
 using ::android::hardware::sensors::V2_0::implementation::ScopedWakelock;
 
 SensorsSubHal::SensorsSubHal() : mCallback(nullptr), mNextHandle(1) {
-    if (property_get_bool("ro.vendor.sensors.xiaomi.udfps", false)) {
+    if (GetBoolProperty("ro.vendor.sensors.xiaomi.udfps", false)) {
         AddSensor<UdfpsSensor>();
     }
-    if (property_get_bool("ro.vendor.sensors.xiaomi.single_tap", false)) {
+    if (GetBoolProperty("ro.vendor.sensors.xiaomi.single_tap", false)) {
         AddSensor<SingleTapSensor>();
     }
-    if (property_get_bool("ro.vendor.sensors.xiaomi.double_tap", false)) {
+    if (GetBoolProperty("ro.vendor.sensors.xiaomi.double_tap", false)) {
         AddSensor<DoubleTapSensor>();
     }
 }
