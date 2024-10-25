@@ -151,7 +151,7 @@ class UdfpsSensor : public SysfsPollingOneShotSensor {
                   "/sys/class/touch/touch_dev/fod_longpress_gesture_enabled", "UDFPS Sensor",
                   "org.lineageos.sensor.udfps",
                   static_cast<SensorType>(static_cast<int32_t>(SensorType::DEVICE_PRIVATE_BASE) +
-                                          3)) {}
+                                          1)) {}
     virtual void fillEventData(Event& event);
     virtual bool readFd(const int fd);
 
